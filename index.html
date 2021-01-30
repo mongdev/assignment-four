@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Booking</title>
+    <!--favicon-->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <!-- fontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.css"
+        integrity="sha512-9iWaz7iMchMkQOKA8K4Qpz6bpQRbhedFJB+MSdmJ5Nf4qIN1+5wOVnzg5BQs/mYH3sKtzY+DOgxiwMz8ZtMCsw=="
+        crossorigin="anonymous" />
+    <!-- BootStrap-CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="container mt-3">
+        <div class="row align-items-center">
+            <div class="col">
+                <div class="booking-form">
+                    <h3>Booking Flights</h3>
+                    <div class="input-group">
+                        <label for="">Flying From</label>
+                        <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+                    </div>
+                    <div class="input-group">
+                        <label for="">Flying To</label>
+                        <input class="inp-style" type="text" name="" placeholder="New York, United States">
+                    </div>
+                    <div class="inputs">
+                        <div class="input-group">
+                            <label" for="">Departure</label>
+                                <input class="inp-style" type="date" name="">
+                        </div>
+                        <div class="input-group">
+                            <label for="">Return</label>
+                            <input class="inp-style" type="date" name="">
+                        </div>
+                    </div>
+                    <div class="input-group f-class">
+                        <div>
+                            <label for="">First Class ($150)</label>
+                            <input id="first-class-count" class="inp-style inp-width" type="number" name="" value="0">
+                        </div>
+                        <div class="plus-minus-btn">
+                            <button onclick="seatBooking('first-class',true)" class="btn"><i
+                                    class="fas fa-plus-circle"></i></button>
+                            <button onclick="seatBooking('first-class',false)" class="btn"><i
+                                    class="fas fa-minus-circle"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="input-group f-class">
+                        <div>
+                            <label for="">Economy Class ($100)</label>
+                            <input id="economy-class-count" class="inp-style inp-width" type="number" name="" value="0">
+                        </div>
+                        <div class="plus-minus-btn">
+                            <button onclick="seatBooking('economy-class',true)" class="btn btn-default"><i
+                                    class="fas fa-plus-circle"></i></button>
+                            <button onclick="seatBooking('economy-class',false)" class="btn btn-default"><i
+                                    class="fas fa-minus-circle"></i></button>
+                        </div>
+                    </div>
+                    <div class="calculations">
+                        <div class="amount">
+                            <div class="left">
+                                <p>Subtotal</p>
+                            </div>
+                            <div class="right">
+                                <p id="sub-total">$00</p>
+                            </div>
+                        </div>
+                        <div class="amount">
+                            <div class="left">
+                                <p>Charge 10% VAT</p>
+                            </div>
+                            <div class="right">
+                                <p id="vat-amount">$00</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="amount">
+                            <div class="left">
+                                <h5>Total</h5>
+                            </div>
+                            <div class="right">
+                                <p id="grand-total">$00</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="booking-button" class="btn-style" data-bs-toggle="modal"
+                        data-bs-target="#display-modal">Book
+                        Now </button>
+                </div>
+            </div>
+            <div class="col mt-3">
+                <div class="booking-content justify-content-center">
+                    <h1>discover <br> around the world</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga
+                        laborumalias
+                        veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt
+                        nobise
+                        voluptatibus quam</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal section-->
+    <div id="display-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Your Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="amount">
+                        <div class="left">
+                            <p>First Class : <span id="first-total-seat"></span></p>
+                        </div>
+                        <div class="right">
+                            <p id="first-class-total">$00</p>
+                        </div>
+                    </div>
+                    <div class="amount">
+                        <div class="left">
+                            <p>Economy Class : <span id="economy-total-seat"></span></p>
+                        </div>
+                        <div class="right">
+                            <p id="economy-class-total">$00</p>
+                        </div>
+                    </div>
+                    <div class="calculations">
+                        <div class="amount">
+                            <div class="left">
+                                <p>Subtotal</p>
+                            </div>
+                            <div class="right">
+                                <p id="modal-sub-total">$00</p>
+                            </div>
+                        </div>
+
+                        <div class="amount">
+                            <div class="left">
+                                <p>Charge 10% VAT</p>
+                            </div>
+                            <div class="right">
+                                <p id="modal-vat-amount">$00</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="amount">
+                            <div class="left">
+                                <h5>Total</h5>
+                            </div>
+                            <div class="right">
+                                <p id="modal-grand-total">$00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="viewcart-button" type="button" class="btn" data-bs-dismiss="modal">View
+                        Cart</button>
+                    <button id="payout-button" type="button" class="btn">Proceed to Pay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--js-Script-Started-->
+    <script>
+        function seatBooking(flightClass, isIncrease) {
+            const seatInput = document.getElementById(flightClass + "-count");
+            const seatCount = parseInt(seatInput.value);
+            let seatNewCount = seatCount;
+            if (isIncrease == true) {
+                seatNewCount = seatCount + 1;
+            }
+            if (isIncrease == false && seatCount > 0) {
+                seatNewCount = seatCount - 1;
+            }
+            seatInput.value = seatNewCount;
+            getTotal();
+        }
+
+        function getTotal() {
+            const firstClassCount = getInputValue("first-class");
+            const economyClassCount = getInputValue("economy-class");
+
+            const firstClassTotal = firstClassCount * 150;
+            document.getElementById('first-class-total').innerText = "$" + firstClassTotal;
+
+            const economyClassTotal = economyClassCount * 100;
+            document.getElementById('economy-class-total').innerText = "$" + economyClassTotal;
+
+            const subTotal = firstClassCount * 150 + economyClassCount * 100;
+            document.getElementById('sub-total').innerText = "$" + subTotal;
+
+            const vat = Math.round(subTotal * 0.1);
+            document.getElementById("vat-amount").innerText = "$" + vat;
+
+            const grandTotal = subTotal + vat;
+            document.getElementById("grand-total").innerText = "$" + grandTotal;
+
+            //modal-display-area-Cart-final-checkOut
+            document.getElementById("first-total-seat").innerText = "Seats [" + firstClassCount + "*$150]";
+            document.getElementById("economy-total-seat").innerText = "Seats [" + economyClassCount + "*$100]";
+            document.getElementById('modal-sub-total').innerText = "$" + subTotal;
+            document.getElementById("modal-vat-amount").innerText = "$" + vat;
+            document.getElementById("modal-grand-total").innerText = "$" + grandTotal;
+        }
+
+        function getInputValue(flightClass) {
+            const seatInput = document.getElementById(flightClass + "-count");
+            const seatCount = parseInt(seatInput.value);
+            return seatCount;
+        }
+    </script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+    <!--footer-part-->
+    <footer class="text-white text-center mt-3">
+        <small>© 2021 FlightsBooking. All rights reserved. </small>
+    </footer>
+</body>
+
+</html>
